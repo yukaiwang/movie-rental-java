@@ -23,12 +23,10 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
         int frequentRenterPoints = 0;
         String result = "Rental Record for " + getName() + "\n";
 
         for (Rental each : rentals) {
-            double thisAmount = getAmountFor(each);
 
             // add frequent renter points
             frequentRenterPoints++;
@@ -37,15 +35,18 @@ public class Customer {
                 frequentRenterPoints++;
 
             // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + each.getMovie().getTitle() + "\t" + getAmountFor(each) + "\n";
         }
 
         // add footer lines
-        result += "Amount owed is " + totalAmount + "\n";
+        result += "Amount owed is " + getTotalAmount() + "\n";
         result += "You earned " + frequentRenterPoints + " frequent renter points";
 
         return result;
+    }
+
+    private double getTotalAmount() {
+        return rentals.stream().mapToDouble(Customer::getAmountFor).sum();
     }
 
     private static double getAmountFor(Rental rental) {
