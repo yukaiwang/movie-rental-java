@@ -1,28 +1,21 @@
 package movierental;
 
-enum MovieType {
-    CHILDRENS,
-    NEW_RELEASE,
-    REGULAR
-}
-
-public class Movie {
+public abstract class Movie {
 
     private final String title;
-    private final MovieType type;
 
-    public Movie(String title, MovieType type) {
+    public Movie(String title) {
         this.title = title;
-        this.type = type;
-    }
-
-    public MovieType getType() {
-        return type;
     }
 
     public String getTitle() {
         return title;
     }
 
+    abstract double calculatePrice(int daysRented);
+
+    int calculateFrequentRenterPoints(int daysRented) {
+        return 1;
+    }
 
 }

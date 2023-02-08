@@ -20,19 +20,19 @@ public class Customer {
         return name;
     }
 
-    public String statement() {
-        String result = "Rental Record for " + getName() + "\n";
+    public String createReceipt() {
+        String receipt = "Rental Record for " + getName() + "\n";
 
         for (Rental rental : rentals) {
             // show figures for this rental
-            result += "\t" + rental.getMovie().getTitle() + "\t" + rental.calculatePrice() + "\n";
+            receipt += "\t" + rental.getMovie().getTitle() + "\t" + rental.calculatePrice() + "\n";
         }
 
         // add footer lines
-        result += "Amount owed is " + getTotalAmount() + "\n";
-        result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points";
+        receipt += "Amount owed is " + getTotalAmount() + "\n";
+        receipt += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points";
 
-        return result;
+        return receipt;
     }
 
     private int getTotalFrequentRenterPoints() {

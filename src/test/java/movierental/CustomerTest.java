@@ -8,14 +8,14 @@ import static movierental.MovieType.*;
 public class CustomerTest {
 
     @Test
-    public void test() {
+    public void shouldCreateReceipt() {
         Customer customer = new Customer("Bob");
-        customer.addRental(new Rental(new Movie("Jaws", REGULAR), 2));
-        customer.addRental(new Rental(new Movie("Golden Eye", REGULAR), 3));
-        customer.addRental(new Rental(new Movie("Short New", NEW_RELEASE), 1));
-        customer.addRental(new Rental(new Movie("Long New", NEW_RELEASE), 2));
-        customer.addRental(new Rental(new Movie("Bambi", CHILDRENS), 3));
-        customer.addRental(new Rental(new Movie("Toy Story", CHILDRENS), 4));
+        customer.addRental(new Rental(new RegularMovie("Jaws"), 2));
+        customer.addRental(new Rental(new RegularMovie("Golden Eye"), 3));
+        customer.addRental(new Rental(new NewReleaseMovie("Short New"), 1));
+        customer.addRental(new Rental(new NewReleaseMovie("Long New"), 2));
+        customer.addRental(new Rental(new ChildrensMovie("Bambi"), 3));
+        customer.addRental(new Rental(new ChildrensMovie("Toy Story"), 4));
 
         String expected = "" +
                 "Rental Record for Bob\n" +
@@ -28,7 +28,7 @@ public class CustomerTest {
                 "Amount owed is 19.0\n" +
                 "You earned 7 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, customer.createReceipt());
     }
 
 //    @Test
