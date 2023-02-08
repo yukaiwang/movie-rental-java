@@ -23,9 +23,9 @@ public class Customer {
     public String statement() {
         String result = "Rental Record for " + getName() + "\n";
 
-        for (Rental each : rentals) {
+        for (Rental rental : rentals) {
             // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + getAmountFor(each) + "\n";
+            result += "\t" + rental.getMovie().getTitle() + "\t" + rental.calculatePrice() + "\n";
         }
 
         // add footer lines
@@ -40,32 +40,7 @@ public class Customer {
     }
 
     private double getTotalAmount() {
-        return rentals.stream().mapToDouble(Customer::getAmountFor).sum();
+        return rentals.stream().mapToDouble(Rental::calculatePrice).sum();
     }
 
-    private static double getAmountFor(Rental rental) {
-        double amount = 0;
-
-        //determine amounts for rental line
-        return switch (rental.getMovie().getType()) {
-            case REGULAR -> {
-                amount += 2;
-                if (rental.getDaysRented() > 2)
-                    amount += (rental.getDaysRented() - 2) * 1.5;
-                yield amount;
-            }
-            case NEW_RELEASE -> {
-
-                amount += rental.getDaysRented() * 3;
-                yield amount;
-            }
-            case CHILDRENS -> {
-                amount += 1.5;
-                if (rental.getDaysRented() > 3)
-                    amount += (rental.getDaysRented() - 3) * 1.5;
-             yield amount;
-            }
-
-        };
-    }
 }
