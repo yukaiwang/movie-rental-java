@@ -3,8 +3,6 @@ package movierental;
 import java.util.ArrayList;
 import java.util.List;
 
-import static movierental.MovieType.NEW_RELEASE;
-
 public class Customer {
 
     private String name;
@@ -38,15 +36,7 @@ public class Customer {
     }
 
     private int getTotalFrequentRenterPoints() {
-        return rentals.stream().mapToInt(Customer::getFrequentRenterPoints).sum();
-    }
-
-    private static int getFrequentRenterPoints(Rental each) {
-        int thisFrequentRenterPoints = 1;
-        // add bonus for a two day new release rental
-        if ((each.getMovie().getType() == NEW_RELEASE) && each.getDaysRented() > 1)
-            thisFrequentRenterPoints++;
-        return thisFrequentRenterPoints;
+        return rentals.stream().mapToInt(Rental::calculateFrequentRenterPoints).sum();
     }
 
     private double getTotalAmount() {
